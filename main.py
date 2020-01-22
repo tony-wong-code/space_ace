@@ -89,7 +89,7 @@ class Shipyard(pygame.sprite.Sprite):
 class Ship(pygame.sprite.Sprite):
     def __init__(self, id):
         pygame.sprite.Sprite.__init__(self)
-        self.image, self.rect = load_png('raven.png')
+        self.image, self.rect = load_png('armageddon.png')
         screen = pygame.display.get_surface()
         self.area = screen.get_rect()
         self.id = id
@@ -139,6 +139,7 @@ def main():
     phase = FITTING
 
     while 1:
+        screen.blit(background, (0, 0))
         clock.tick(60)
 
         for event in pygame.event.get():
@@ -152,7 +153,10 @@ def main():
                 if event.key == K_2:
                     phase = BATTLE
 
-        screen.blit(background, (0, 0))
+        
+
+        if ship.rect.collidepoint(pygame.mouse.get_pos()):
+            pygame.draw.rect(screen, (200, 0, 0), pygame.Rect(525, 50, 200, 300))
 
         if phase == FITTING:
             screen.blit(background, player1.rect, player1.rect)
